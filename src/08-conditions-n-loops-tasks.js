@@ -144,8 +144,10 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const d = Math.sqrt((circle.center.x - point.x) ** 2 + (circle.center.y - point.y) ** 2);
+  if (d < circle.radius) return true;
+  return false;
 }
 
 /**
@@ -185,8 +187,12 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let s = '';
+  if (isStartIncluded) { s += '['; } else s += '(';
+  if (a < b) { s += `${a}, ${b}`; } else s += `${b}, ${a}`;
+  if (isEndIncluded) { s += ']'; } else s += ')';
+  return s;
 }
 
 /**
@@ -201,8 +207,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -347,8 +353,15 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  if (n === 10) return num;
+  let nn = '';
+  let q = num;
+  while (q > 0) {
+    nn += q % n;
+    q = Math.floor(q / n);
+  }
+  return reverseString(nn);
 }
 
 /**
